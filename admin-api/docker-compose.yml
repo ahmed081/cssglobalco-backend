@@ -1,0 +1,56 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: recruit-postgres
+    environment:
+      POSTGRES_DB: recruit
+      POSTGRES_USER: recruit_user
+      POSTGRES_PASSWORD: recruit_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - recruit_pgdata:/var/lib/postgresql/data
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0
+    container_name: recruit-keycloak
+    command: start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/recruit
+      KC_DB_USERNAME: recruit_user
+      KC_DB_PASSWORD: recruit_password
+      KC_HTTP_ENABLED: "true"
+      KC_HOSTNAME_STRICT: "false"
+    depends_on:
+      - postgres
+    ports:
+      - "8081:8080"
+
+  api:
+    build: .
+    container_name: recruit-api
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/recruit
+      DB_USERNAME: recruit_user
+      DB_PASSWORD: recruit_password
+      DB_DRIVER: org.postgresql.Driver
+      KEYCLOAK_BASE_URL: http://keycloak:8080
+      KEYCLOAK_REALM: css-global
+      KEYCLOAK_CLIENT_ID: css-recruit-api
+      KEYCLOAK_CLIENT_SECRET: change-me
+      KEYCLOAK_ADMIN_CLIENT_ID: admin-cli
+      KEYCLOAK_ADMIN_USERNAME: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KEYCLOAK_ISSUER_URI: http://localhost:8081/realms/css-global
+      CORS_ALLOWED_ORIGINS: http://localhost:5173,http://localhost:3000
+    depends_on:
+      - postgres
+      - keycloak
+    ports:
+      - "8080:8080"
+
+volumes:
+  recruit_pgdata:

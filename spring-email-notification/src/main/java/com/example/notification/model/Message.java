@@ -30,6 +30,15 @@ public class Message {
     @Column(nullable = false)
     private String interest;
 
+    @Column(name = "appointment_date")
+    private String appointmentDate;
+
+    @Column(name = "appointment_time")
+    private String appointmentTime;
+
+    @Column
+    private String timezone;
+
     @Column(nullable = false)
     private LocalDateTime sentAt = LocalDateTime.now();
 }

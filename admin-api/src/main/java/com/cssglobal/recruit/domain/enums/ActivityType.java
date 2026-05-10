@@ -1,0 +1,5 @@
+package com.cssglobal.recruit.domain.enums;
+
+public enum ActivityType {
+    CANDIDATE_CREATED, CANDIDATE_UPDATED, STAGE_CHANGED, NOTE_ADDED, JOB_CREATED, JOB_UPDATED, PROFILE_SHARED, INTERVIEW_SCHEDULED
+}

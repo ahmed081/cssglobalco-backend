@@ -1,3 +1,13 @@
 package com.example.notification.dto;
 
-public record MessageRequest(String name, String email, String company, String interest) {}
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record MessageRequest(
+        String name,
+        String email,
+        String interest,
+        String company,
+        @JsonProperty("appointment_date") String appointmentDate,
+        @JsonProperty("appointment_time") String appointmentTime,
+        String timezone
+) {}
