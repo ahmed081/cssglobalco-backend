@@ -24,10 +24,11 @@ public class Message {
     @Column(nullable = false)
     private String email;
 
-    private String subject;
+    @Column(nullable = false)
+    private String company;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String body;
+    @Column(nullable = false)
+    private String interest;
 
     @Column(nullable = false)
     private LocalDateTime sentAt = LocalDateTime.now();

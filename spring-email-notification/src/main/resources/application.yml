@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/cssglobalco
-    username: your-db-username
-    password: your-db-password
+    url: jdbc:postgresql://76.13.33.57:5432/css_global_co_db
+    username: css_global_co
+    password: 3^kZ!N9bY/9P
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

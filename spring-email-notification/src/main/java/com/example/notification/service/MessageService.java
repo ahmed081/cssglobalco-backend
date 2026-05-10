@@ -16,8 +16,8 @@ public class MessageService {
         Message message = new Message();
         message.setName(request.name());
         message.setEmail(request.email());
-        message.setSubject(request.subject());
-        message.setBody(request.body());
+        message.setCompany(request.company());
+        message.setInterest(request.interest());
         return messageRepository.save(message);
     }
 }
